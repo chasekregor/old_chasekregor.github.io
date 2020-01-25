@@ -4,15 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hi, I am Chase! I am a data analyst located in Denver, CO.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I currently work at [DaVita](https://www.davita.com/).
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Previously I was at the [University of Colorado Information Science](https://www.colorado.edu/cmci/infoscience), [Level 3 Communications](https://en.wikipedia.org/wiki/Level_3_Communications), and [Boomtown Accelerator](https://boomtownaccelerators.com/).
 
 
-[jekyll-organization]: https://github.com/jekyll

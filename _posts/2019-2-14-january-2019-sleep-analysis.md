@@ -4,6 +4,11 @@ title: January 2019 Sleep Analysis
 comments: true
 redirect_from: "2019-2-14-january-2019-sleep-analysis"
 permalink: january-2019-sleep-analysis
+categories: 
+    - "biohacker"
+    - "quantified-self"
+    - "DataScience"
+---
 ---
 
 
@@ -240,7 +245,7 @@ df.plot()
 
 
 
-![png](../assets/output_5_1.png)
+![png](../assets/posts/output_5_1.png)
 
 
 ## What was my average sleep for the month?
@@ -315,7 +320,7 @@ df.plot.hist(bins = 8, range = (3, 11))
 
 
 
-![png](../assets/output_9_1.png)
+![png](../assets/posts/output_9_1.png)
 
 
 ## What was the difference in sleep on weekdays versus weekends?
@@ -340,7 +345,7 @@ sleep.boxplot(column = 'Hours in Bed', by = 'day_type', positions = [2, 1],
 
 
 
-![png](../assets/output_12_1.png)
+![png](../assets/posts/output_12_1.png)
 
 
 ## What was the difference in sleep per day of the week?
@@ -371,7 +376,7 @@ sleep.boxplot(column = 'Hours in Bed', by = 'day_name', positions = [5, 1, 6, 7,
 
 
 
-![png](../assets/output_15_1.png)
+![png](../assets/posts/output_15_1.png)
 
 
 
@@ -387,7 +392,7 @@ sleep.plot.scatter(x = 'bedtime', y = 'Hours in Bed' )
 
 
 
-![png](../assets/output_16_1.png)
+![png](../assets/posts/output_16_1.png)
 
 
 ## Final Thoughts and Next Steps:

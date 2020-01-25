@@ -39,7 +39,7 @@ version:             2.0.0
 github:
 repo:              https://github.com/chasekregor/chasekregor.github.io
 
-pages_list:       {'Blog':'/archive','Portfolio':'/portfolio','Resume':'/resume','Data For Hire':'/dataforhire','2019 Goals':'/goals-for-2019'}
+pages_list:       {'Blog':'/archive','Categories':'/categories','Portfolio':'/portfolio','Resume':'/resume','Data For Hire':'/dataforhire','2019 Goals':'/goals-for-2019'}
 
 # Exclude from processing.
 # The following items will not be processed, by default.
