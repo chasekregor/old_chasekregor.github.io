@@ -13,6 +13,10 @@ In my free time, I really enjoy cycling.
 - Weight: 90.54 kg
 - FTP: 214w (2.36 w/kg) @ 5,200 ft
 
+### most recent rides:
+
+<iframe height='454' width='600' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/3623618/latest-rides/02e43e83aaa3e8989fa8ed4d921c4db8396bfa42'></iframe>
+
 ### race results:
 
 ### strava segments:
