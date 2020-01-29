@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hi, I am Chase! I am a data analyst located in Denver, CO.
+Hi, I am Chase! I am a data scientist located in Denver, CO.
 
 I currently work at [DaVita](https://www.davita.com/).
 

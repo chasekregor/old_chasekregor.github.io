@@ -21,6 +21,7 @@ In my free time, I really enjoy cycling.
 
 ### strava segments:
 - [Flagstaff climb in Boulder, CO](https://www.strava.com/activities/269398985#6309717255)
+- [Sunshine Canyon climb in Boulder, CO](https://www.strava.com/activities/2305722506/segments/58257428975)
 - [Lookout mountain in Golden, CO](https://www.strava.com/activities/268323200#6285168866)
 - [Chapman climb in Boulder, CO](https://www.strava.com/activities/902550125#66530106057)
 - [Mount Lemmon in Tucson, AZ](https://www.strava.com/activities/462549170/segments/11125464275)
