@@ -10,8 +10,8 @@ In my free time, I really enjoy cycling.
 ### stats:
 
 - Age: 26
-- Weight: 90.54 kg
-- FTP: 214w (2.36 w/kg) @ 5,200 ft
+- Weight: 192.4 pounds aka 87.27 kg
+- FTP: [236 watts for 20 minutes](https://www.strava.com/activities/3071112454) x 0.95 = 224 (2.57 w/kg) @ 5,200 ft
 
 ### most recent rides:
 
@@ -21,8 +21,10 @@ In my free time, I really enjoy cycling.
 
 ### strava segments:
 - [Flagstaff climb in Boulder, CO](https://www.strava.com/activities/269398985#6309717255)
-- [Sunshine Canyon climb in Boulder, CO](https://www.strava.com/activities/2305722506/segments/58257428975)
+- [Sunshine Hillclimb Challenge Course climb in Boulder, CO](https://www.strava.com/activities/2305722506/segments/58257428975)
+- [Lower Sunshine Canyon to Upper Poorman Road in Boulder, CO](https://www.strava.com/activities/3066511952/segments/76080052863)
 - [Lookout mountain in Golden, CO](https://www.strava.com/activities/268323200#6285168866)
+- [NCAR in Boulder, CO](https://www.strava.com/activities/3066511952/segments/76080055267)
 - [Chapman climb in Boulder, CO](https://www.strava.com/activities/902550125#66530106057)
 - [Mount Lemmon in Tucson, AZ](https://www.strava.com/activities/462549170/segments/11125464275)
 - [sa Calobra in Mallorca, Spain](https://www.strava.com/activities/144939589/segments/4976839905)
