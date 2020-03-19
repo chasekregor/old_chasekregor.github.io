@@ -3,26 +3,35 @@ layout: page
 title: Portfolio
 ---
 
-### End to End:
-- [chasekregor.com](https://chasekregor.com): I iteratively design, build, and maintain this website from skratch. You can find all of the source code [here](https://github.com/chasekregor/chasekregor.github.io).
-- [MoviRec](https://movirec.herokuapp.com): For my information science capstone, I built a movie recommender system and website with scikit-learn and flask.
-- [QuantifiedChase](https://quantified-chase.herokuapp.com): Inspired by the quantified self movement, I am creating a website that acts as a dashboard for my life. The website displays an aggregation of my data from various platforms I use, including my Apple Watch, HealthKit, MyFitnessPal, and Strava.
+Portfolio of data science projects completed for academic, self learning, and professional purposes. Presented in the form of Jupyter Notebooks and flask websites.
 
-### Machine Learning:
-- [No Shows](http://nbviewer.jupyter.org/github/chasekregor/NoShows/blob/master/Final%20Notebook/KregorFinalNoShows.ipynb): My applied machine learning final project. An ensemble of models that vote against one another to predict if a patient will or won't show up for their medical appointment.
-- [MoviRec](https://movirec.herokuapp.com)
+## Tools
+  - **Machine Learning**: scikit-learn
+  - **Data Analysis**: SQL, NumPy, Pandas, Seaborn, Matplotlib, Altair, Tableau
+  
 
-### Data Analysis & Visualization:
-- [Analyzing US Mass Shootings](http://nbviewer.jupyter.org/github/chasekregor/AnalyzingUSMassShootings/blob/master/usmassshootings.ipynb): In an attempt to better understand mass shootings in the US. I conducted an exploratory data analysis.
-- [QuantifiedChase](https://quantified-chase.herokuapp.com)
+## Machine Learning
+- [K-means Clustering - MoviRec](https://movirec.herokuapp.com/): Using K-means clustering and flask to predict what other movies you might like.
+- [K-nearest neighbors Classification - NoShows](https://github.com/chasekregor/NoShows/blob/master/Final%20Notebook/KregorFinalNoShows.ipynb): Using a KNN and ensemble model to predict if patients will show up for their medical appointments.
 
-### Databases & Big Data:
-- [MoviRec's SQL Component](https://github.com/chasekregor/MoviRec/blob/master/create_db_and_model.ipynb)
-
-### Communication:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Vs0pxyHD2CY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-- [NoShows Presentation Slides](https://github.com/chasekregor/NoShows/blob/master/presentation%20slides/KregorFinalProjectPresentationSlideshow.pdf)
+    
+## Data Analysis and Visualization
+- [Exploratory Data Analysis - Strava Cycling Analysis 2019](https://github.com/chasekregor/StravaCyclingAnalysis2019): Simple analysis of my 2019 cycling data using statistics & visualizations to better understand my fitness. 
+- [Exploratory Data Analysis - January 2019 Sleep Analysis](http://chasekregor.com/january-2019-sleep-analysis): Simple analysis of my January 2019 sleep data using statistics & visualizations to better understand my sleep hygiene.
+- [Exploratory Data Analysis - Analyzing US Mass Shootings](https://github.com/chasekregor/AnalyzingUSMassShootings/blob/master/usmassshootings.ipynb): Simple analysis in order to have a better understanding of mass shootings in the US.
 
 
-### Micro Projects:
-- [Trump's Twitter Campaign Analysis](https://github.com/chasekregor/DigitalANTH): An natural language processing analysis on the objectivity and subjectivity of Donald Trump's campaign tweets.
+## End to End Data Science Projects
+- [Flask Website - QuantChase](https://quantified-chase.herokuapp.com/week): Built and deployed a Flask website that aggregates & visualizes's my health data from various platforms.
+- [Flask Website - MoviRec](https://movirec.herokuapp.com/): Using K-means clustering and flask to predict what other movies you might like.
+
+## Micro & Other Projects
+- [chasekregor.github.io](https://chasekregor.com/)
+
+## Formal Education
+
+
+If you enjoyed what you saw, want to have a chat with me about the portfolio, work opportunities, or collaboration, feel free to contact me on:
+- [LinkedIn](https://www.linkedin.com/in/chasekregor/)
+- [Twitter](https://twitter.com/ChaseKregor)
+  
