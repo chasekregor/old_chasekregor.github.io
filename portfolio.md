@@ -28,9 +28,6 @@ Portfolio of data science projects completed for academic, self learning, and pr
 ## Micro & Other Projects
 - [chasekregor.github.io](https://chasekregor.com/)
 
-## Formal Education
-
-
 If you enjoyed what you saw, want to have a chat with me about the portfolio, work opportunities, or collaboration, feel free to contact me on:
 - [LinkedIn](https://www.linkedin.com/in/chasekregor/)
 - [Twitter](https://twitter.com/ChaseKregor)
