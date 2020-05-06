@@ -1,0 +1,248 @@
+I"�#<h3 id="the-transy-language">The Transy Language</h3>
+
+<p>The language itself was only ever verbally described to the students in class. There were certain specifics that everybody needed to meet, but otherwise the implementations were all individual. It is a loosely typed, procedural language that it Touring Complete. The syntax for the language can most easily be compared to BASIC. It is fairly easy to learn and use, but be careful with those <code class="highlighter-rouge">goto</code> commands.</p>
+
+<p>The type system:</p>
+<ul>
+  <li>ID = variable or constant</li>
+  <li>Literal = “string of words” or $literalVariable</li>
+  <li>Array = An aggregate data type for IDs</li>
+</ul>
+
+<p>See the project page for my <a href="/transy-compiler-executor">Transy Compiler &amp; Executor</a> for more information.</p>
+
+<h3 id="the-commands">The Commands</h3>
+
+<h4 id="read">read</h4>
+
+<p>Takes in up to 7 variables to be read in to Core Memory</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read firstVar, secondVar, thirdVar
+</code></pre></div></div>
+
+<h4 id="write">write</h4>
+
+<p>Takes in up to 7 variables from Core Memory to be written out to the console</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>write firstVar, secondVar, thirdVar
+</code></pre></div></div>
+
+<h4 id="stop">stop</h4>
+
+<p>Tells the Executor to finish executing</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stop
+</code></pre></div></div>
+
+<h4 id="dim">dim</h4>
+
+<p>Allocates the space for up to 7 arrays at a time in Core Memory</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dim firstArray[10], secondArray[15], thirdArray[20]
+</code></pre></div></div>
+
+<h4 id="aread">aread</h4>
+
+<p>Reads in values to the array locations in Core Memory between the specified startIndex and endIndex</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aread firstArray, 3, 8
+</code></pre></div></div>
+
+<h4 id="awrite">awrite</h4>
+
+<p>Writes the values to the screen from Core Memory in the array locations between the specified startIndex and endIndex</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>awrite firstArray, 3, 8
+</code></pre></div></div>
+
+<h4 id="goto">goto</h4>
+
+<p>Starts executing at the line specified by the line label</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firstLineLabel:
+goto firstLineLabel
+</code></pre></div></div>
+
+<h4 id="loop">loop</h4>
+
+<p>Loops while the runnerVariable has not yet crossed the endValue. The runnerVariable must be a variable, while the startIndex, endIndex, and incrementAmount can be variables or constants. It is a pre-test loop</p>
+
+<p>The conditional is based off the incrementAmount.</p>
+
+<p><strong>Conditions</strong></p>
+<ul>
+  <li>Positive: <code class="highlighter-rouge">&lt;=</code></li>
+  <li>Negative: <code class="highlighter-rouge">&gt;=</code></li>
+  <li>Zero: <code class="highlighter-rouge">!=</code></li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop runnerVariable, startIndex, endIndex, IncrementAmount
+	a = a + runnerVariable
+loop-end
+</code></pre></div></div>
+
+<h4 id="loop-end">loop-end</h4>
+
+<p>Manipulates the runnderVariable by incrementAmount, based off the last loop encountered by the executor. Then it checks the conditional of that loop. If it succeeds, the program begins executing at the first line in the loop. If it fails, the program continues executing at the next line after loop-end</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop runnerVariable, startIndex, endIndex, IncrementAmount
+	a = a + runnerVariable
+loop-end
+</code></pre></div></div>
+
+<h4 id="ifa">ifa</h4>
+
+<p>Jumps to one of the line labels specified based on whether the supplied value is negative, zero, or positive</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifa (varToTest) negativeLabel, zeroLabel, positiveLabel
+negativeLabel:
+lwrite "The value was negative\n"
+goto finishedLabel
+zeroLabel:
+lwrite "The value was zero\n"
+goto finishedLabel
+positiveLabel:
+lwrite "The value was positive\n"
+finishedLabel: stop
+</code></pre></div></div>
+
+<h4 id="nop">nop</h4>
+
+<p>Does not do anything</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nop
+</code></pre></div></div>
+
+<h4 id="listo">listo</h4>
+
+<p>Prints out the object code for the current program</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listo
+</code></pre></div></div>
+
+<h4 id="lread">lread</h4>
+
+<p>Reads in a $literalVariable to the Literal Table</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lread $literalVariable
+</code></pre></div></div>
+
+<h4 id="lwrite">lwrite</h4>
+
+<p>Writes the literal to the console. Can take in a $literalVariable or a “literal string”. <code class="highlighter-rouge">\n</code> prints a new line</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lwrite "Please supply a literal"
+lread $literalVariable
+lwrite $literalVariable
+</code></pre></div></div>
+
+<h4 id="if">if</h4>
+
+<p>Starts executing at the line location specified if the conditional evaluates to true. Otherwise, it continues executing at the next line.</p>
+
+<p><strong>Operators:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;</code></li>
+  <li><code class="highlighter-rouge">&lt;=</code></li>
+  <li><code class="highlighter-rouge">=</code></li>
+  <li><code class="highlighter-rouge">&gt;</code></li>
+  <li><code class="highlighter-rouge">&gt;=</code></li>
+  <li><code class="highlighter-rouge">!</code></li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (firstVar &lt; secondVar) then firstLineLabel
+a = firstVar
+goto finishLabel
+firstLineLabel: a = secondVar
+finishLabel: stop
+</code></pre></div></div>
+
+<h4 id="cls">cls</h4>
+
+<p>Clears the screen</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cls
+</code></pre></div></div>
+
+<h4 id="cdump">cdump</h4>
+
+<p>Prints all of the values in Core Memory between the startIndex and the endIndex</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cdump 0, 10
+</code></pre></div></div>
+
+<h4 id="subp">subp</h4>
+
+<p>Executes the mathematical command represented by the operation and given the ID. It then sets the value to the supplied variable</p>
+
+<p><strong>Operations:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">sin</code> = sets the variable to the sin of the ID</li>
+  <li><code class="highlighter-rouge">cos</code> = sets the variable to the cosin of the ID</li>
+  <li><code class="highlighter-rouge">exp</code> = sets the variable to the base-e exponential function of the ID</li>
+  <li><code class="highlighter-rouge">abs</code> = sets the variable to absolute value of the ID</li>
+  <li><code class="highlighter-rouge">alg</code> = sets the variable to the log base 2 of the ID</li>
+  <li><code class="highlighter-rouge">aln</code> = sets the variable to the natural log of the ID</li>
+  <li><code class="highlighter-rouge">log</code> = sets the variable to the log base 10 of the ID</li>
+  <li><code class="highlighter-rouge">sqr</code> = sets the variable to the square root of the ID</li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subp sin(destinationVariable, sourceValue)
+</code></pre></div></div>
+
+<h4 id="assignment">Assignment</h4>
+
+<p>All basic mathematical expressions can be handled.</p>
+
+<p><strong>Operators:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">+</code></li>
+  <li><code class="highlighter-rouge">-</code></li>
+  <li><code class="highlighter-rouge">*</code></li>
+  <li><code class="highlighter-rouge">/</code></li>
+  <li><code class="highlighter-rouge">^</code></li>
+  <li><code class="highlighter-rouge">()</code> = enforced order of operations</li>
+  <li><code class="highlighter-rouge">[]</code> = direct access into an array index</li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a[2^5] = 0 + 2 / firstArray[index] * (-10 - b ^ 2)
+</code></pre></div></div>
+:ET

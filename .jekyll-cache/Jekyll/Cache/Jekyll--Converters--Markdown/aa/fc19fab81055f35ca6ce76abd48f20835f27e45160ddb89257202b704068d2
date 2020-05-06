@@ -1,0 +1,142 @@
+I"�#<p>To create this website I used <a href="https://jekyllrb.com">Jekyll</a> and hosted it using <a href="https://pages.github.com">GitHub Pages</a>. Jekyll is a framework used to quickly develop lightweight static webpages to display content. The individual files are all created with Markdown, Liquid Templates, YAML Front Matter, HTML, or CSS. Jekyll is made to make blogging super easy by managing permalinks, categories, pages, and posts. It is also super easy to get up and running with custom themes.</p>
+
+<p>I learned how to use Jekyll through a <a href="https://www.udemy.com/jekyll-and-github-pages/">Udemy course created by AwesomeInc</a>. With that great video series, the <a href="https://jekyllrb.com/docs/home/">Jekyll docs</a>, and a lot of trial and error, developing my own website went fairly smooth and straightforward.</p>
+
+<h3 id="getting-started-with-jekyll">Getting started with Jekyll</h3>
+
+<p>Installing Jekyll was super easy on my Ubuntu 16.04 machine. I just followed the instructions from <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-jekyll-development-site-on-ubuntu-16-04">this tutorial</a>. These are the notes I took from there on installing and creating my first website:</p>
+
+<blockquote>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) Installing
+	- sudo apt-get update
+	- sudo apt-get install ruby ruby-dev make gcc
+		- I think I already had make and gcc
+	- sudo gem install jekyll bundler
+		- use Ruby's gem package manager to install Jekyll &amp; the dependency managing bundler
+2) Open the firewall
+	- sudo ufw status
+		- mine is inactive
+3) Create a New Development Site
+	- jekyll new testDevSite
+	- bundle install
+		** I didn't do this because it looked like new did it already
+4) Start Jekyll Web Server
+	- jekyll serve https://localhost:4000
+		- or specify the host address in order to browse from local machine
+			- jekyll serve --host=203.0.113.0
+	- access the site at the URL provided in the terminal
+		- http:___.0.0.1:4000
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="choosing-a-theme">Choosing a theme</h3>
+
+<p>One of the best parts about Jekyll is how easy it is to get up and running with a beautiful looking theme. There is a huge list of good ones at <a href="http://jekyllthemes.org/">Jekyll Themes</a>. I chose to use <a href="http://jekyllthemes.org/themes/particle/">Particle by Nathan Randecker</a> because I thought that the content was smoothly laid out and that the header was professional yet tech-y and captivating. Check out the simple template at <a href="https://nrandecker.github.io/particle/">Particle Demo Website</a>.</p>
+
+<p>To use the theme you simply download the folder from the website and start personalizing the files right there in that directory.</p>
+
+<p>Once I got up and running I quickly realized that this theme came with some interesting style-sheets already included:</p>
+
+<p>1) <a href="http://getskeleton.com/">Skeleton</a>:</p>
+
+<p>Skeleton is a powerful and simple 12-column responsive boilerplate for making nicely formatted websites. It is how the site manages displaying the content in individual rows that are separated into columns.</p>
+
+<p>2) <a href="fontawesome.io">Font Awesome 4.7</a>:</p>
+
+<p>Font Awesome is a super easy to use, yet massive, library of icons / fonts that can be formatted with CSS. The Particle Theme used these for all of the contact icon links in the header.</p>
+
+<p>3) <a href="konpa.github.io/devicon">Devicon 2.0</a>:</p>
+
+<p>Devicon is a set of icons representing programming languages, design tools, development software, and more. This is what the Particle Theme used for all of the icons in the Expertise Section. Unfortunately I couldn’t find a whole lot of logos for developer tools that I actually used. I would have liked to seen: Unity Game Development, Jekyll, JUCE Audio Framework, Music Production Software (Ableton, ProTools), Video Production Software (Premiere Pro, iMovie)</p>
+
+<h3 id="customization">Customization</h3>
+
+<p>Customizing the theme has really been a never ending task as my website grows more and more. It was easy to get converted over from the basic template into a personalized version, which included changing all of the titles, descriptions, links, and paragraphs.</p>
+
+<p>The first larger customization I did was to change the icon for a featured project from an image into a video. Getting it to fit into the layout was quite a headache. I even tried creating a whole video wrapper as in <a href="https://www.youtube.com/watch?v=N0kKs1fef-c&amp;list=PLHxMDdOvyrzjitCCFqhppldxacWL50jlA&amp;index=4">this YouTube video</a> but it still actually formats poorly sometimes on a skinny display.</p>
+
+<p>Then I went ahead and created another paragraph like “My Expertise”, except this time as a more personal “About Me” section. I wanted to give the website a little more personality, so I used skeleton to split that row into two separate columns <code>&lt;div class="six columns"&gt;</code> and embedded my latest instagram post.</p>
+
+<h3 id="creating-posts">Creating Posts</h3>
+
+<p>With Jekyll and their great <a href="https://jekyllrb.com/docs/posts/">Docs</a>, creating posts was super easy!</p>
+
+<h4 id="1-create-a-new-folder-called-_posts">1) Create a new folder called <code>/_posts</code></h4>
+
+<h4 id="2-create-a-new-layout-called-_layoutsposthtml">2) Create a new layout called <code>/_layouts/post.html</code></h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: default
+---
+
+&lt;div class="container"&gt;
+	&lt;h1&gt;{{ page.title }}&lt;/h1&gt;
+	&lt;time datetime="{{ page.date | date: "%-d %b %y" }}"&gt;{{ page.date | date: "%-d %b %y" }}&lt;/time&gt;
+	&lt;t&gt; - - - {{ page.author }}&lt;/t&gt;
+	{{ content }}
+&lt;/div&gt;
+</code></pre></div></div>
+
+<h4 id="3-create-the-first-post">3) Create the first post:</h4>
+
+<p>You’ll notice that I currently have a lot of Front Matter declaring different variables for the post. It also uses markdown with <code>##</code> to declare a <code>&lt;h1&gt;</code> and then uses liquid template tags within the markdown to display an <code>img</code> with all the <code>![ {{  }} ]( {{  }}{{  }} )</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: post
+title: My First Post!
+author: Brendan Thompson
+date:   2017-08-11 16:30:02 -0400
+permalink: /First-Post
+categories: Testing
+excerpt: My first ever post on my new website
+published: true # jekyll serve --unpublished to view
+image: /assets/img/mountains.jpg
+imageAlt: Mountains
+---
+
+## Welcome to my new website
+
+![{{ page.imageAlt }}]({{ site.url }}{{ page.image }})
+
+This is my first post. I am excited to get this section of the website up and running. Possibly I will re-write all of my JUCE development DevLog out as a section of posts. Maybe another section of posts for JUCE tips &amp; tricks. We'll see what happens
+</code></pre></div></div>
+
+<h4 id="4-link-to-the-post">4) Link to the post</h4>
+
+<p>This part was harder for me than it should have been because I am streaming this from a github pages project instead of just the main brenthompson2.github.io master branch. I’m sure there is a good way to work around that using liquid template tags and permalinks and stuff, but I don’t quite have a grasp on it just yet.</p>
+
+<p>In the end I created a <code>_includes/recent-posts.html</code> section included on the homepage that displays every one of my posts:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="container"&gt;
+
+	&lt;div class="home-details"&gt;
+		&lt;h3&gt; Recent Posts &lt;/h3&gt;
+	&lt;/div&gt;
+
+	&lt;ul class="post-display"&gt;
+		{% for post in site.posts %}
+		&lt;li class="row"&gt;
+			&lt;div class="six columns images"&gt;
+ 				&lt;img src="{{ site.url }}{{ post.image }}" alt="{{ post.imageAlt }}"&gt;
+			&lt;/div&gt;
+
+			&lt;div class="six columns"&gt;
+ 				&lt;h5&gt;&lt;a href="{{ site.url }}{{ post.url }}"&gt;{{ post.title }}&lt;/a&gt;&lt;/h5&gt;
+
+ 				&lt;time datetime="{{ post.date | date_to_xmlschema }}"&gt;{{ post.date | date_to_string }}&lt;/time&gt;
+ 				&lt;t&gt; - - - {{ post.author }}&lt;/t&gt;
+ 				&lt;p&gt;{{ post.excerpt }}&lt;/p&gt;
+			&lt;/div&gt;
+		&lt;/li&gt;
+		{% endfor %}
+	&lt;/ul&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Creating static webpages with Jekyll is incredibly easy to do, and I highly recommend giving it a try. My website still has a lot more work to be done on it, and with the power of Jekyll I can’t wait to see what else it has in store! At this point my number one priorities are creating a navigation header bar, making a projects page, and creating more posts. It would also be cool if I could get the pictures and texts to got back to switching sides like in the demo project. I don’t know what I changed but now it is always text first and then the picture</p>
+
+<p>Checkout the code currently streaming this website at <a href="https://github.com/brenthompson2/My-Website">the GitHub repository</a>.</p>
+
+:ET

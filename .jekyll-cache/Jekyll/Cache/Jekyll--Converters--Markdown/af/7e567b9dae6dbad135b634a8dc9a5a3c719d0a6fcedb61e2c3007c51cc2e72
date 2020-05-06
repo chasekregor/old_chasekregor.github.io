@@ -1,0 +1,65 @@
+I"S<div class="container">
+	<br />
+	<div class="home-title">
+	    <h1>Post Categories</h1>
+	</div>
+
+	<!--
+    Posts Basic Tags Display
+    Brendan Thompson
+
+    A basic Posts display page with images and texts sorted by Tags
+ -->
+
+
+ <div class="container">
+
+		
+			
+			
+
+			<div class="post-display">
+				<h2 id="testing">Testing</h2>
+			</div>
+
+			<ul class="post-display">
+				
+				
+				
+				
+				
+			    <li class="row">
+			      	<div class="six columns">
+			    	 	<h4><a href="/juce-intro">An Introduction to the JUCE Framework</a></h4>
+			    	 	<p>
+</p>
+			      	</div>
+
+			      	<div class="six columns">
+			        	<img alt="JUCE Logo" src="http://localhost:4000" />
+			      	</div>
+			    </li>
+			    
+			    
+				
+				
+				
+			    <li class="row">
+			      	<div class="six columns">
+			    	 	<h4><a href="/first-post">My First Post!</a></h4>
+			    	 	<p>My first ever post on my new website</p>
+			      	</div>
+
+			      	<div class="six columns">
+			        	<img alt="Mountains" src="http://localhost:4000" />
+			      	</div>
+			    </li>
+			    
+			    
+				
+			</ul>
+
+		
+</div>
+</div>
+:ET

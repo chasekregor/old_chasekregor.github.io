@@ -1,0 +1,562 @@
+I"6U<h3 id="the-transy-language">The Transy Language</h3>
+
+<p>For more information on the Transy Language, see my complete version of the <a href="/transy-language-spec">Transy Language Specification</a>.</p>
+
+<h3 id="the-compiler">The Compiler</h3>
+
+<p>The compiler itself is a 3-pass compiler. On its first pass it gathers all of the line labels into the LineLabel table. On the second pass it removes all spaces, removes all blank lines, and changes all characters except those in literals to uppercase. It outputs the modified file as <code class="highlighter-rouge">noblanks.txt</code>. This file is what is read in during the third pass. The compiler parses the command names and calls on the specific command handlers to process the actual command.</p>
+
+<h4 id="compilerdrivercpp">CompilerDriver.cpp</h4>
+
+<p>This is the main driver for the compiler. It takes in the arguments and parses them to get the flags and the filename. Basically, it creates an instance of BRENxCompiler and tells it to prepare for compilation, to compile, and then to shutdown.</p>
+
+<p>If the <code class="highlighter-rouge">-x</code> flag is set, is calls upon the executor after successfully completing compilation</p>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_FLAGS 7
+</code></pre></div></div>
+
+<h4 id="brenxcompiler">BRENxCompiler</h4>
+
+<p>This is the class defined in Compiler.cpp &amp; Compiler.h.</p>
+
+<p><strong>Preprocessing</strong></p>
+<ul>
+  <li>While it is instantiating, it passes pointers to the necessary components to each of the command handlers (FileManager, LineManager, MemoryManager, etc.)</li>
+  <li>Gets the filename &amp; flags from the CompilerDriver &amp; passes them to the FileManager</li>
+  <li>Gives the LiteralManager and the MemoryManager pointers to the FileManager</li>
+  <li>Tells the LineManager to sync the labels recorded during the first pass with the lines given read in during the noBlanks pass</li>
+</ul>
+
+<p><strong>Compiling</strong></p>
+<ul>
+  <li>Gets one line at a time from the FileManager</li>
+  <li>Calls on the specified command handler to manage compiling the line</li>
+  <li>Keeps track of the number of errors</li>
+</ul>
+
+<p><strong>When Finished Compiling</strong></p>
+<ul>
+  <li>Tells the MemoryManager to output the <code class="highlighter-rouge">.core</code> file</li>
+  <li>Tells the LiteralManager to output the <code class="highlighter-rouge">.literal</code> file</li>
+  <li>Tells the FileManager &amp; the MemoryManger to set the compilation result</li>
+  <li>Calls the destructor for the FileManager in case the <code class="highlighter-rouge">-x</code> flag was set and it needs to close the files</li>
+</ul>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_FLAGS 7
+MAX_NUM_LINES_IN_TRANSY_PROGRAM 1000
+</code></pre></div></div>
+
+<h3 id="compiler-components">Compiler Components</h3>
+
+<h4 id="filemanager">FileManager</h4>
+
+<p>This is the class defined in FileManager.cpp &amp; FileManager.h.</p>
+
+<p><strong>Preprocessing</strong></p>
+<ul>
+  <li>Sets the flags that manage which files get deleted after compilation</li>
+  <li>Create or open the files (<code class="highlighter-rouge">.transy</code>, <code class="highlighter-rouge">.obj</code>, <code class="highlighter-rouge">.noblanks</code>, <code class="highlighter-rouge">.core</code>, <code class="highlighter-rouge">.literal</code>)</li>
+  <li>Handles the first pass by parsing for literals and adding them to the LineManager</li>
+  <li>Handles the second pass by creating the noblanks file and adding the lines to the LineManager</li>
+</ul>
+
+<p><strong>Compiling</strong></p>
+<ul>
+  <li>Gets the next line for the Compiler</li>
+  <li>Writes the object code for each command out to the <code class="highlighter-rouge">.obj</code> file</li>
+</ul>
+
+<p><strong>When Finished Compiling</strong></p>
+<ul>
+  <li>Writes all the values from the MemoryManager out to the <code class="highlighter-rouge">.core</code> file</li>
+  <li>Writes all the literals from the LiteralManager out to the <code class="highlighter-rouge">.literal</code> file</li>
+  <li>Removes the files based off the compilation result and the flags</li>
+</ul>
+
+<h4 id="memorymanager">MemoryManager</h4>
+
+<p>This is the class defined in SymbolTable.cpp &amp; SymbolTable.h.</p>
+
+<p><strong>Compiling</strong></p>
+<ul>
+  <li>Stores all IDs in an array of type memorytableObject</li>
+  <li>Returns the memoryLocations for each ID when commands need it</li>
+  <li>Writes the object code for each command out to the <code class="highlighter-rouge">.obj</code> file</li>
+  <li>Puts constants into memory</li>
+</ul>
+
+<p><strong>When Finished Compiling</strong></p>
+<ul>
+  <li>Tells the FileManager to output one value at a time to <code class="highlighter-rouge">.core</code></li>
+  <li>Manages the compilation result (index 1000 of core memory)</li>
+</ul>
+
+<p><strong>Type Definitions</strong></p>
+
+<p>memoryTableObject</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- string name
+- unsigned int memoryLocation (which is just the index and therefore unnecessary)
+- double value
+- bool isConstant (necessary when adding a constant instead of a variable)
+- bool isArray (necessary when adding an array)
+- unsigned int size (for arrays)
+</code></pre></div></div>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_VARIABLES 1001
+NOT_FOUND_IN_ARRAY -1
+UNDEFINED_VALUE 0.123456789
+INDEX_COMPILATION_RESULT 1000
+SUCCESSFULLY_COMPILED 0
+FAILED_COMPILATION 1
+</code></pre></div></div>
+
+<h4 id="linemanager">LineManager</h4>
+
+<p>This is the compiler’s object defined in lineLabelTable.cpp &amp; lineLabelTable.h.</p>
+
+<p><strong>Preprocessing</strong></p>
+<ul>
+  <li>Gets each line label from the FileManager</li>
+  <li>Maps each transyLineNumber with the objLineNumber from the FileManager</li>
+  <li>Syncs the line labels with the closest line after creating the noBlanks</li>
+</ul>
+
+<p><strong>Compiling</strong></p>
+<ul>
+  <li>Stores all LineLabels in an array of type lineLabelObject</li>
+  <li>Maps objLineNumbers to transyLineNumbers for proper compilation error messages</li>
+  <li>Returns the obj line number for each label when commands need it</li>
+</ul>
+
+<p><strong>Type Definitions</strong></p>
+
+<p>lineLabelObject</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- string labelName
+- int transyLineNumber
+- int objLineNumber (gets mapped when syncing during preprocessing)
+</code></pre></div></div>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_LINES 1001
+NOT_FOUND_IN_ARRAY -1
+</code></pre></div></div>
+
+<h4 id="expressionfixconverter--expressionconvertingmatrix">ExpressionFixConverter &amp; ExpressionConvertingMatrix</h4>
+
+<p>This is the compiler’s object defined in ExpressionFixConverter.cpp &amp; ExpressionFixConverter.h. It handles converting assignment statements from infix to postfix. It relies heavily on the ExpressionConvertingMatrix to determine what actions to take for each input value, given the current state of the expression.</p>
+
+<h3 id="the-executor">The Executor</h3>
+
+<p>The executor is significantly simpler than the compiler. It assumes that all of the lines of code are correct, and therefore doesn’t handle many errors. It does give a few warnings.</p>
+
+<h4 id="executordrivercpp">ExecutorDriver.cpp</h4>
+
+<p>This is the main driver for the executor. It takes in the arguments and parses them to get the flags and the filename. Basically, it creates an instance of BRENxExecutor and tells it to prepare for execution, to execute, and then to shutdown.</p>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_FLAGS 7
+</code></pre></div></div>
+
+<h4 id="brenxexecutor">BRENxExecutor</h4>
+
+<p>This is the main executor class created in Executor.cpp &amp; Executor.h.</p>
+
+<p><strong>Preparing</strong></p>
+<ul>
+  <li>Sets the flags</li>
+  <li>Tells the FileManager to load the files</li>
+</ul>
+
+<p><strong>Executing</strong></p>
+<ul>
+  <li>Gets one line at a time from the ProgramLineManager &amp; calls the associated command handler</li>
+  <li>Keeps track of the number of errors</li>
+</ul>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_FLAGS 7
+MAX_NUM_LINES_IN_TRANSY_PROGRAM 1000
+</code></pre></div></div>
+
+<h3 id="executor-components">Executor Components</h3>
+
+<h4 id="efilemanager">EFileManager</h4>
+
+<p>The main file manager for the executor</p>
+
+<p>Loads all of files</p>
+
+<ul>
+  <li><code class="highlighter-rouge">.obj</code> into ProgramLineManager</li>
+  <li><code class="highlighter-rouge">.literal</code> into LiteralManager</li>
+  <li><code class="highlighter-rouge">.core</code> into MemoryManager</li>
+</ul>
+
+<h4 id="efilemanager-1">EFileManager</h4>
+
+<p>The main file manager for the executor created in EFileManager.cpp &amp; EFileManager.h</p>
+
+<p>Loads all of files</p>
+
+<ul>
+  <li><code class="highlighter-rouge">.obj</code> into ProgramLineManager</li>
+  <li><code class="highlighter-rouge">.literal</code> into LiteralManager</li>
+  <li><code class="highlighter-rouge">.core</code> into MemoryManager</li>
+</ul>
+
+<h4 id="corememory">CoreMemory</h4>
+
+<p>The main MemoryManager for the executor created in CoreMemory.cpp &amp; CoreMemory.h</p>
+
+<ul>
+  <li>Stores all of the values for the IDs</li>
+  <li>Handles array dimensions</li>
+  <li>Last few spots are for temporary memory during assignment handling</li>
+</ul>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_VARIABLES 1001
+MAX_SIZE_TEMP_MEM 20
+INDEX_TEMP_MEM (MAX_NUM_VARIABLES - MAX_SIZE_TEMP_MEM - 1)
+</code></pre></div></div>
+
+<h4 id="programlinemanager">ProgramLineManager</h4>
+
+<p>The main ProgramLineManager for the executor created in ProgramLineTable.cpp &amp; ProgramLineTable.h</p>
+
+<ul>
+  <li>Stores all of the lines of obj code and gives them to the executor</li>
+  <li>Stores each line as an array of elements</li>
+</ul>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_LINES 1000
+MAX_NUM_PARAMETERS 40 (for assignment statements)
+</code></pre></div></div>
+
+<h4 id="loopmanager">LoopManager</h4>
+
+<p>The main LoopManager for the executor created in LoopManager.cpp &amp; LoopManager.h</p>
+
+<ul>
+  <li>Creates a stack of loops whenever the loop command is found</li>
+  <li>Whenever the loop-end command is found, it increments the top runnerValue and tests the conditional</li>
+  <li>If the condition succeeds, it goes to the line pointed to by the top loop</li>
+  <li>If the condition fails, it pops the top loop off the stack and goes to the next line</li>
+</ul>
+
+<p><strong>Type Definitions</strong></p>
+
+<p>loopObject</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int lineNumber
+int runnerAddress
+int startIndexAddress
+int endIndexAddress
+double incrementAmountAddress
+</code></pre></div></div>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_LOOPS 7
+</code></pre></div></div>
+
+<h3 id="shared-components">Shared Components</h3>
+
+<h4 id="literalmanager">LiteralManager</h4>
+
+<p>This is the class defined in literalTable.cpp &amp; literalTable.h. It is used during Compilation and Execution</p>
+
+<p><strong>Compiling</strong></p>
+<ul>
+  <li>Stores all literals in an array of type literalTableObject</li>
+  <li>Returns the memoryLocation for each literal when commands need it</li>
+</ul>
+
+<p><strong>When Finished Compiling</strong></p>
+<ul>
+  <li>Tells the FileManager to output one literal at a time to <code class="highlighter-rouge">.literal</code></li>
+</ul>
+
+<p><strong>Executing</strong></p>
+<ul>
+  <li>Returns the string for each requested literal memory location</li>
+</ul>
+
+<p><strong>Type Definitions</strong></p>
+
+<p>literalTableObject (for compilation)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- string variableName;
+- string literalString;
+- unsigned int memoryLocation (which is just the index and therefore unnecessary)
+</code></pre></div></div>
+
+<p><strong>Symbolic Constants</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_NUM_LITERALS 100
+NOT_FOUND_IN_ARRAY -1
+UNDEFINED_LITERAL 0.123456789
+</code></pre></div></div>
+
+<h3 id="the-commands">The Commands</h3>
+
+<p>This section is currently the exact same as the <a href="/transy-language-spec">Transy Language Specification</a></p>
+
+<h4 id="read">read</h4>
+
+<p>Takes in up to 7 variables to be read in to Core Memory</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read firstVar, secondVar, thirdVar
+</code></pre></div></div>
+
+<h4 id="write">write</h4>
+
+<p>Takes in up to 7 variables from Core Memory to be written out to the console</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>write firstVar, secondVar, thirdVar
+</code></pre></div></div>
+
+<h4 id="stop">stop</h4>
+
+<p>Tells the Executor to finish executing</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stop
+</code></pre></div></div>
+
+<h4 id="dim">dim</h4>
+
+<p>Allocates the space for up to 7 arrays at a time in Core Memory</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dim firstArray[10], secondArray[15], thirdArray[20]
+</code></pre></div></div>
+
+<h4 id="aread">aread</h4>
+
+<p>Reads in values to the array locations in Core Memory between the specified startIndex and endIndex</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aread firstArray, 3, 8
+</code></pre></div></div>
+
+<h4 id="awrite">awrite</h4>
+
+<p>Writes the values to the screen from Core Memory in the array locations between the specified startIndex and endIndex</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>awrite firstArray, 3, 8
+</code></pre></div></div>
+
+<h4 id="goto">goto</h4>
+
+<p>Starts executing at the line specified by the line label</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firstLineLabel:
+goto firstLineLabel
+</code></pre></div></div>
+
+<h4 id="loop">loop</h4>
+
+<p>Loops while the runnerVariable has not yet crossed the endValue. The runnerVariable must be a variable, while the startIndex, endIndex, and incrementAmount can be variables or constants. It is a pre-test loop</p>
+
+<p>The conditional is based off the incrementAmount.</p>
+
+<p><strong>Conditions</strong></p>
+<ul>
+  <li>Positive: <code class="highlighter-rouge">&lt;=</code></li>
+  <li>Negative: <code class="highlighter-rouge">&gt;=</code></li>
+  <li>Zero: <code class="highlighter-rouge">!=</code></li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop runnerVariable, startIndex, endIndex, IncrementAmount
+	a = a + runnerVariable
+loop-end
+</code></pre></div></div>
+
+<h4 id="loop-end">loop-end</h4>
+
+<p>Manipulates the runnderVariable by incrementAmount, based off the last loop encountered by the executor. Then it checks the conditional of that loop. If it succeeds, the program begins executing at the first line in the loop. If it fails, the program continues executing at the next line after loop-end</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop runnerVariable, startIndex, endIndex, IncrementAmount
+	a = a + runnerVariable
+loop-end
+</code></pre></div></div>
+
+<h4 id="loop-end-1">loop-end</h4>
+
+<p>Manipulates the runnderVariable by incrementAmount, based off the last loop encountered by the executor. Then it checks the conditional of that loop. If it succeeds, the program begins executing at the first line in the loop. If it fails, the program continues executing at the next line after loop-end</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loop runnerVariable, startIndex, endIndex, IncrementAmount
+	a = a + runnerVariable
+loop-end
+</code></pre></div></div>
+
+<h4 id="ifa">ifa</h4>
+
+<p>Jumps to one of the line labels specified based on whether the supplied value is negative, zero, or positive</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifa (varToTest) negativeLabel, zeroLabel, positiveLabel
+negativeLabel:
+lwrite "The value was negative\n"
+goto finishedLabel
+zeroLabel:
+lwrite "The value was zero\n"
+goto finishedLabel
+positiveLabel:
+lwrite "The value was positive\n"
+finishedLabel: stop
+</code></pre></div></div>
+
+<h4 id="nop">nop</h4>
+
+<p>Does not do anything</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nop
+</code></pre></div></div>
+
+<h4 id="nop-1">nop</h4>
+
+<p>Prints out the object code for the current program</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listo
+</code></pre></div></div>
+
+<h4 id="lread">lread</h4>
+
+<p>Reads in a $literalVariable to the Literal Table</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lread $literalVariable
+</code></pre></div></div>
+
+<h4 id="lwrite">lwrite</h4>
+
+<p>Writes the literal to the console. Can take in a $literalVariable or a “literal string”. <code class="highlighter-rouge">\n</code> prints a new line</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lwrite "Please supply a literal"
+lread $literalVariable
+lwrite $literalVariable
+</code></pre></div></div>
+
+<h4 id="if">if</h4>
+
+<p>Starts executing at the line location specified if the conditional evaluates to true. Otherwise, it continues executing at the next line.</p>
+
+<p><strong>Operators:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;</code></li>
+  <li><code class="highlighter-rouge">&lt;=</code></li>
+  <li><code class="highlighter-rouge">=</code></li>
+  <li><code class="highlighter-rouge">&gt;</code></li>
+  <li><code class="highlighter-rouge">&gt;=</code></li>
+  <li><code class="highlighter-rouge">!</code></li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (firstVar &lt; secondVar) then firstLineLabel
+a = firstVar
+goto finishLabel
+firstLineLabel: a = secondVar
+finishLabel: stop
+</code></pre></div></div>
+
+<h4 id="cls">cls</h4>
+
+<p>Clears the screen</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cls
+</code></pre></div></div>
+
+<h4 id="cdump">cdump</h4>
+
+<p>Prints all of the values in Core Memory between the startIndex and the endIndex</p>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cdump 0, 10
+</code></pre></div></div>
+
+<h4 id="subp">subp</h4>
+
+<p>Executes the mathematical command represented by the operation and given the ID. It then sets the value to the supplied variable</p>
+
+<p><strong>Operations:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">sin</code> = sets the variable to the sin of the ID</li>
+  <li><code class="highlighter-rouge">cos</code> = sets the variable to the cosin of the ID</li>
+  <li><code class="highlighter-rouge">exp</code> = sets the variable to the base-e exponential function of the ID</li>
+  <li><code class="highlighter-rouge">abs</code> = sets the variable to absolute value of the ID</li>
+  <li><code class="highlighter-rouge">alg</code> = sets the variable to the log base 2 of the ID</li>
+  <li><code class="highlighter-rouge">aln</code> = sets the variable to the natural log of the ID</li>
+  <li><code class="highlighter-rouge">log</code> = sets the variable to the log base 10 of the ID</li>
+  <li><code class="highlighter-rouge">sqr</code> = sets the variable to the square root of the ID</li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subp sin(destinationVariable, sourceValue)
+</code></pre></div></div>
+
+<h4 id="assignment">Assignment</h4>
+
+<p>All basic mathematical expressions can be handled.</p>
+
+<p><strong>Operators:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">+</code></li>
+  <li><code class="highlighter-rouge">-</code></li>
+  <li><code class="highlighter-rouge">*</code></li>
+  <li><code class="highlighter-rouge">/</code></li>
+  <li><code class="highlighter-rouge">^</code></li>
+  <li><code class="highlighter-rouge">()</code> = enforced order of operations</li>
+  <li><code class="highlighter-rouge">[]</code> = direct access into an array index</li>
+</ul>
+
+<p><strong>example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a[2^5] = 0 + 2 / firstArray[index] * (-10 - b ^ 2)
+</code></pre></div></div>
+:ET
