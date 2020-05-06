@@ -1,4 +1,4 @@
-I"Î<div class="container">
+I"ù<div class="container">
 	<br />
 	<div class="home-title">
 	    <h1>All Projects</h1>
@@ -18,7 +18,7 @@
     
     <div class="five columns reveal-display-item">
 
-        <img class="reveal-display-image" alt="Hours Cycling in 2019" src="http://localhost:4000" />
+        <img class="reveal-display-image" alt="Hours Cycling in 2019" src="http://localhost:4000/assets/img/project-images/hourscycling.png" />
 
         <a href="http://localhost:4000//eda-2019-cycling-data">
             <div class="reveal-display-description">

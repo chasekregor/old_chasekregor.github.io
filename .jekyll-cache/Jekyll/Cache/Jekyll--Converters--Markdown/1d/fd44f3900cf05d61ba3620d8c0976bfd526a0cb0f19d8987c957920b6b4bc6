@@ -1,4 +1,4 @@
-I"R<div class="container">
+I"5<div class="container">
 	<div class="container">
 
   <!-- Personal Info Section -->
@@ -28,14 +28,7 @@
         <p> Hi, I am Chase! I am a data scientist located in Denver, CO. I currently work at Charter within Spectrum Enterprise’s product analytics team. My expertise is in using data science, business, and communication to solve real-world problems.
         </p>
       </div>
-      <style>
-        .strava-badge- { display: inline-block; height: 48px; }
-        .strava-badge- img { visibility: hidden; height: 48px; }
-        .strava-badge-:hover { background-position: 0 -63px; }
-        .strava-badge-follow { height: 48px; width: 48px; background: url(//badges.strava.com/echelon-sprite-48.png) no-repeat 0 0; }
-      </style>
-      <a href="http://strava.com/athletes/3623618/badge" class="strava-badge- strava-badge-follow" target="_blank"><img src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" /></a>
-    
+      
 
   <!-- <hr> -->
 
@@ -120,7 +113,7 @@
     <div class="six columns">
       <i class="devicon-git-plain"></i>
       <img src="/assets/img/logos/Microsoft_Excel_Logo.svg" style="width:80px;height:80px;" />
-      <img src="/assets/img/logos/Jupyter_Logo.svg" style="width:80px;height:80px;" />
+      <img src="/assets/img/logos/Jupyter_logo.svg" style="width:80px;height:80px;" />
       <p> Enter a description here about my data science background or expertise</p>
     </div>
 
