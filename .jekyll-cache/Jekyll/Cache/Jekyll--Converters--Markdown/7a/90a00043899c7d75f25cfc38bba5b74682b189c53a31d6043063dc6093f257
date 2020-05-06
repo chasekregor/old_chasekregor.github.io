@@ -1,0 +1,45 @@
+I"™<div class="container">
+	<!--
+    Posts Basic Tags Display
+    Brendan Thompson
+
+    A basic Posts display page with images and texts sorted by Tags
+ -->
+
+
+ <div class="container">
+
+		
+			
+			
+
+			<div class="post-display">
+				<h2 id="testing">Testing</h2>
+			</div>
+
+			<ul class="post-display">
+				
+				
+				
+			    <li class="row">
+			      	<div class="six columns">
+			    	 	<h4><a href="/posts-in-beta">More Posts To Come</a></h4>
+			    	 	<p>
+</p>
+			      	</div>
+
+			      	<div class="six columns">
+			        	<img alt="JUCE Logo" src="http://localhost:4000" />
+			      	</div>
+			    </li>
+			    
+			    
+				
+				
+				
+			</ul>
+
+		
+</div>
+</div>
+:ET

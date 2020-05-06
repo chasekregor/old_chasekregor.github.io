@@ -1,6 +1,6 @@
 /* sweetScroll load */
 document.addEventListener("DOMContentLoaded", function () {
-  new SweetScroll({/* some options */});
+  const sweetScroll = new SweetScroll({/* some options */});
 
   /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
   particlesJS('particles-js', {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       },
       "color": {
-        "value": "#c2f1ff"
+        "value": "#ffffff"
       },
       "shape": {
         "type": "polygon",
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       nb: 80
     },
     "interactivity": {
-      "detect_on": "canvas",
+      "detect_on": "window",
       "events": {
         "onhover": {
           "enable": false,

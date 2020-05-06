@@ -1,0 +1,36 @@
+I"Î<div class="container">
+	<br />
+	<div class="home-title">
+	    <h1>All Projects</h1>
+	</div>
+
+	<!--
+    Projects Display Include
+    Brendan Thompson
+
+    A project display page where hovering over the image reveals the text
+ -->
+
+<div class="row reveal-display">
+    <div class="five columns reveal-display-item"></div>
+    <div class="five columns reveal-display-item"></div>
+
+    
+    <div class="five columns reveal-display-item">
+
+        <img class="reveal-display-image" alt="Hours Cycling in 2019" src="http://localhost:4000" />
+
+        <a href="http://localhost:4000//eda-2019-cycling-data">
+            <div class="reveal-display-description">
+                <h1 class="reveal-display-title">EDA of 2019 Cycling Data</h1>
+
+                <p class="reveal-display-text">Used the Strava API, python, altair, and jupyter notebooks to conduct an exploratory data analysis on my 2019 cycling data.</p>
+            </div>
+        </a>
+
+    </div>
+    
+</div>
+
+</div>
+:ET

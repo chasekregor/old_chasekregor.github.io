@@ -1,19 +1,23 @@
 # Site settings
-title: chasekregor.com
-description: chasekregor.com
-#baseurl: "/blog" # the subpath of your site, e.g. /blog
-# url: "localhost:3000" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
+title: Chase Kregor's Website
+description: Chase Kregor's blog
+# url: "chasekregor.com"
+permalink: pretty
+
+# Sass
+sass:
+    sass_dir: _sass
+
+# Navigation Bar
+# navigation-header:
+#   Home: /
+#   Posts: /posts/
+#   Categories: /Categories/
+#   Projects: /projects/
 
 # User settings
-username: Chase Kregor
-user_description: Hi, I am Chase! I am a data scientist located in Denver, CO. I currently work at Charter within Spectrum Enterprise’s product analytics team. My expertise is in using data science, business, and communication to solve real-world problems. 
+username: Chase Kregro
 user_title: Data Scientist
 email: chaseakregor@gmail.com
-twitter_username: chasekregor
-github_username:  chasekregor
-
-# Google-analytics
-google-analytics:
-  id: ""
 
 exclude: ['package.json', 'src' , 'node_modules']
